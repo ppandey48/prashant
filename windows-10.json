@@ -1,0 +1,39 @@
+{
+  "builders": [{
+    "name": "windows-10",
+    "vm_name": "vm-template-win-10-v1",
+    "type": "vmware-iso",
+    "headless": false,
+    "iso_url": "https://s3.amazonaws.com/windows-os/XXXXXXXXX/XXXXXXX.iso",
+    "iso_checksum": "XXXXXXXXXXXXXXXX",
+    "iso_checksum_type": "sha1",
+    "disk_size": "61440",
+    "guest_os_type": "windows10-64",
+    "floppy_files": [
+      "./scripts/autounattend-win10.xml"
+    ],
+    "boot_wait": "10m",
+    "vnc_port_min": "5900",
+    "vnc_port_max": "5911",
+    "vnc_bind_address": "0.0.0.0",
+    "vnc_disable_password": "true",
+    "ssh_username": "root",
+    "disk_type_id": "thin",
+
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'nullgrid'|sudo -S sh 'shutdown.sh'",
+
+    "remote_type": "esx6",
+    "remote_host": "XX.XX.XX.XX",
+    "remote_datastore": "datastore1",
+    "remote_username": "root",
+    "remote_password": "XXXX",
+    "keep_registered": true,
+
+    "vmx_data": {
+      "memsize": "32000",
+      "numvcpus": "8",
+      "ethernet0.networkName": "Private-Subnet",
+      "scsi0.virtualDev": "lsisas1068"
+    }
+  }]
+}
